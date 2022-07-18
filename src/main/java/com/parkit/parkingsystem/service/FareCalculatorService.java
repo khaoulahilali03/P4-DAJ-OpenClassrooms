@@ -12,9 +12,16 @@ public class FareCalculatorService {
 
         int inHour = ticket.getInTime().getHours();
         int outHour = ticket.getOutTime().getHours();
+        int inMinute = ticket.getInTime().getMinutes();
+        int outMinute = ticket.getOutTime().getMinutes();
 
         //TODO: Some tests are failing here. Need to check if this logic is correct
-        int duration = outHour - inHour;
+        double duration;
+
+        if (outHour - inHour < 1)
+            duration = (60 - (outMinute-inMinute))/60.0;
+        else
+            duration = (outHour - inHour) + (outMinute -inMinute)/60.0;
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
